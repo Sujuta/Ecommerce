@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .cart-item img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-details {
+            flex-grow: 1;
+        }
+
+        .cart-details h2 {
+            margin: 0;
+            color: rgb(131, 124, 124);
+        }
+
+        .cart-details p {
+            margin: 8px 0;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quantity-control button {
+            padding: 5px 10px;
+            background-color: rgb(131, 124, 124);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .quantity-control span {
+            font-size: 18px;
+        }
+
+        .total-price {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+        }
+
+        .buy-now-btn {
+            display: inline-block;
+            width: auto;
+            padding: 8px 16px;
+            margin-top: 20px;
+            background-color: rgb(131, 124, 124);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .buy-now-btn:hover {
+            background-color: rgb(44, 42, 42);
+        }
+
+        .remove-btn {
+            background-color: rgb(131, 124, 124);
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .remove-btn:hover {
+            background-color: rgb(44, 42, 42);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Shopping Cart</h1>
+        <div id="cart-items"></div>
+        <div class="total-price" id="total-price">Total: ₹0.00</div>
+        <a href="onlinepayement.php"><button class="buy-now-btn" id="buy-now">Buy Now</button></a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+            const cartItemsContainer = document.getElementById('cart-items');
+
+            function displayCartItems() {
+                cartItemsContainer.innerHTML = '';
+                cart.forEach((product, index) => {
+                    console.log(product)
+                    const cartItemDiv = document.createElement('div');
+                    cartItemDiv.className = 'cart-item';
+                    cartItemDiv.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="cart-details">
+                            <h2>${product.name}</h2>
+                            <p>${product.description || ''}</p>
+                            <p>Price: ₹${product.price.toFixed(2)}</p>
+                            <div class="quantity-control">
+                                <button class="decrease-quantity" data-index="${index}">-</button>
+                                <span class="product-quantity">${product.quantity}</span>
+                                <button class="increase-quantity" data-index="${index}">+</button>
+                            </div>
+                            <button class="remove-btn" data-index="${index}">Remove Product</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItemDiv);
+                });
+                updateTotalPrice();
+            }
+
+            function updateTotalPrice() {
+                const totalPrice = cart.reduce((total, product) => total + (product.price * product.quantity), 0);
+                document.getElementById('total-price').textContent = `Total: ₹${totalPrice.toFixed(2)}`;
+            }
+
+            cartItemsContainer.addEventListener('click', function (event) {
+                const index = event.target.getAttribute('data-index');
+                if (event.target.classList.contains('increase-quantity')) {
+                    cart[index].quantity++;
+                } else if (event.target.classList.contains('decrease-quantity')) {
+                    if (cart[index].quantity > 1) {
+                        cart[index].quantity--;
+                    }
+                } else if (event.target.classList.contains('remove-btn')) {
+                    cart.splice(index, 1);
+                }
+                localStorage.setItem('shoppingCart', JSON.stringify(cart));
+                displayCartItems();
+            });
+
+            document.getElementById('buy-now').addEventListener('click', function () {
+              
+                // Additional purchase handling code can go here
+            });
+
+            displayCartItems(); // Initial call to display cart items
+        });
+
+        // This part should be executed when adding a product to the cart
+        function addToCart() {
+            const product = {
+                id: 'idanäs',
+                name: 'IDANÄS',
+                price: 26000, // Replace with your actual price
+                quantity: 1,
+                image: 'img/product/bed.avif', // Replace with your actual image path
+                description: 'The sloping headboard and soft upholstery make IDANÄS ottoman bed extra comfortable.'
+            };
+            
+
+            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+            const existingProductIndex = cart.findIndex(item => item.id === product.id);
+
+            if (existingProductIndex > -1) {
+                cart[existingProductIndex].quantity += product.quantity;
+            } else {
+                cart.push(product);
+            }
+
+            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+            alert('Product added to cart!');
+        }
+
+        // Call this function to add the product when needed
+        // addToCart(); // Uncomment this line to test adding the product
+    </script>
+</body>
+</html>

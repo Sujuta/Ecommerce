@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Form</title>
+    <style>
+        /* Form Container */
+        form {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Input fields */
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Button Styling */
+        button {
+            width: 100%;
+            background-color: #888; /* Gray color */
+            color: white;
+            padding: 12px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease; /* Smooth transition for animation */
+        }
+
+        button:hover {
+            background-color: #555; /* Darker gray on hover */
+            transform: scale(1.05); /* Slight zoom effect */
+        }
+
+        /* Payment mode section */
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        /* Optional - Styling for text area */
+        textarea {
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <form id="checkout-form">
+        <h3>Enter Your Information</h3>
+
+        <!-- Customer Details -->
+        <label for="customer-name">Name:</label>
+        <input type="text" id="customer-name" required><br>
+    
+        <label for="customer-email">Email:</label>
+        <input type="email" id="customer-email" required><br>
+    
+        <label for="customer-address">Address:</label>
+        <textarea id="customer-address" required></textarea><br>
+
+        <!-- Payment Mode Selection -->
+        <h3>Select Payment Mode</h3>
+        <label>
+            <input type="radio" name="payment-mode" value="cash-on-delivery" id="payment-cod" required> Cash on Delivery
+        </label><br>
+        <label>
+            <input type="radio" name="payment-mode" value="online-payment" id="payment-online" required> Online Payment
+        </label><br>
+
+        <!-- Payment Options for Online Payment -->
+        <div id="online-payment-options" style="display: none;">
+            <label for="payment-method">Select Payment Method:</label>
+            <select id="payment-method">
+                <option value="credit-card">Credit Card</option>
+                <option value="upi">UPI</option>
+                <option value="gpay">GPay</option>
+            </select><br>
+        </div>
+
+        <button type="submit">Place Order</button>
+    </form>
+
+    <script>
+        // Show payment options based on payment mode selection
+        document.getElementById('payment-online').addEventListener('change', function () {
+            document.getElementById('online-payment-options').style.display = 'block';
+        });
+
+        document.getElementById('payment-cod').addEventListener('change', function () {
+            document.getElementById('online-payment-options').style.display = 'none';
+        });
+
+        // Handle form submission
+        document.getElementById('checkout-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get customer details
+            const customerName = document.getElementById('customer-name').value;
+            const customerEmail = document.getElementById('customer-email').value;
+            const customerAddress = document.getElementById('customer-address').value;
+
+            // Get payment mode details
+            let paymentMode = document.querySelector('input[name="payment-mode"]:checked').value;
+            let paymentMethod = '';
+            if (paymentMode === 'online-payment') {
+                paymentMethod = document.getElementById('payment-method').value;
+            }
+
+            // Collect product details
+            const productName = localStorage.getItem('cartProductName');
+            const productDescription = localStorage.getItem('cartProductDescription');
+            const productPrice = parseFloat(localStorage.getItem('cartProductPrice').replace('₹', ''));
+            const productQuantity = parseInt(localStorage.getItem('cartProductQuantity'));
+            const totalPrice = productPrice * productQuantity;
+
+            // Send the data to the server using AJAX
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'place_order.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    alert('Order placed successfully!');
+                    window.location.href = 'index.html'; // Redirect to admin page
+                }
+            };
+
+            xhr.send(`product_name=${productName}&product_description=${productDescription}&product_price=${productPrice}&product_quantity=${productQuantity}&total_price=${totalPrice}&customer_name=${customerName}&customer_email=${customerEmail}&customer_address=${customerAddress}&payment_mode=${paymentMode}&payment_method=${paymentMethod}`);
+        });
+    </script>
+</body>
+</html>

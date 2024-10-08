@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Description - Modern Office Desk Chair</title>
+  <style> body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.product-display {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    animation: slideIn 0.8s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.product-images {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.product-images .main-image,
+.product-images .video-container {
+    width: 100%;
+    height: 300px; /* Adjusted height */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.product-images .main-image img,
+.product-images .video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.product-images .main-image img:hover,
+.product-images .video-container video:hover {
+    transform: scale(1.05); /* Adjusted scale */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.thumbnail-images {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.thumbnail-images img {
+    width: 80px; /* Adjusted size */
+    height: 80px; /* Adjusted size */
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.thumbnail-images img:hover {
+    transform: scale(1.1); /* Adjusted scale */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-info {
+    flex: 3;
+    color: #0A0245;
+}
+
+.product-info h1 {
+    font-size: 32px; /* Adjusted font size */
+    margin: 0;
+    color: #5032D2;
+    transition: color 0.4s ease;
+}
+
+.product-info h1:hover {
+    color: #0A0245;
+}
+
+.rating, .price {
+    font-size: 20px; /* Adjusted font size */
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+}
+
+.rating span {
+    color: #f5c518;
+    font-size: 22px; /* Adjusted font size */
+}
+
+.price {
+    color: #e67e22;
+    font-weight: bold;
+}
+
+.product-description, .product-features {
+    margin-top: 24px;
+    line-height: 1.6;
+}
+
+.product-features ul {
+    padding-left: 24px;
+}
+
+.product-features li {
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 28px;
+    transition: color 0.4s ease, transform 0.4s ease;
+}
+
+.product-features li:hover {
+    color: #2ecc71;
+    transform: scale(1.02); /* Adjusted scale */
+}
+
+.product-features li::before {
+    content: '✔';
+    color: #5032D2;
+    position: absolute;
+    left: 0;
+    font-size: 18px; /* Adjusted font size */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.buttons {
+    display: flex;
+    gap: 16px; /* Adjusted gap */
+    margin-top: 24px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttons button {
+    padding: 14px 28px; /* Adjusted padding */
+    font-size: 16px; /* Adjusted font size */
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.4s ease, transform 0.3s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.buy-button {
+    background-color: #5032D2;
+}
+
+.buy-button:hover {
+    background-color: #0A0245;
+    transform: translateY(-2px); /* Adjusted transform */
+}
+
+.cart-button {
+    background-color: #e67e22;
+}
+
+.cart-button:hover {
+    background-color: #d35400;
+    transform: translateY(-2px); /* Adjusted transform */
+}
+
+.customer-reviews, .suggested-products, .offers-section {
+    margin-top: 30px;
+    padding: 24px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.customer-reviews h2, .suggested-products h2, .offers-section h2 {
+    border-bottom: 3px solid #ddd;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    color: #5032D2;
+}
+
+.review {
+    margin-bottom: 24px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
+}
+
+.review h3 {
+    margin: 0;
+    color: #333;
+}
+
+.review-rating {
+    color: #f5c518;
+    font-size: 18px; /* Adjusted font size */
+}
+
+.review-form {
+    margin-top: 24px;
+}
+
+.review-form textarea {
+    width: 100%;
+    height: 100px; /* Adjusted height */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    resize: none;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.review-form textarea:focus {
+    border-color: #5032D2;
+    outline: none;
+    box-shadow: 0 0 8px rgba(80, 50, 210, 0.3);
+}
+
+.review-form button {
+    margin-top: 12px;
+    padding: 12px 24px;
+    background-color: #5032D2;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.4s ease, transform 0.3s ease;
+    box-shadow: 0 6px 12px rgba(80, 50, 210, 0.3);
+}
+
+.review-form button:hover {
+    background-color: #0A0245;
+    transform: translateY(-2px); /* Adjusted transform */
+}
+
+.rating-stars {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.rating-stars input[type="radio"] {
+    display: none;
+}
+
+.rating-stars label {
+    font-size: 24px; /* Adjusted font size */
+    color: #ccc;
+    cursor: pointer;
+}
+
+.rating-stars input[type="radio"]:checked ~ label {
+    color: #f5c518;
+}
+
+.rating-stars input[type="radio"]:checked ~ label ~ label {
+    color: #f5c518;
+}
+
+.suggested-products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjusted size */
+    gap: 20px; /* Adjusted gap */
+}
+
+.suggested-product {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    padding: 12px; /* Adjusted padding */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.suggested-product img {
+    width: 100%;
+    height: 180px; /* Adjusted height */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s ease;
+}
+
+.suggested-product:hover img {
+    transform: scale(1.05); /* Adjusted scale */
+}
+
+.suggested-product:hover {
+    transform: scale(1.02); /* Adjusted scale */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.offer {
+    background-color: #fdf4e3;
+    border: 1px solid #f0e1d6;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.offer h3 {
+    margin: 0;
+    color: #e67e22;
+}
+
+.offer p {
+    margin: 0;
+    color: #333;
+}
+
+.offer-code {
+    font-weight: bold;
+    color: #e67e22;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 8px;
+}
+</style>
+<!-- libs CSS -->
+<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="libs/nivo-slider/css/nivo-slider.css">
+<link rel="stylesheet" href="libs/nivo-slider/css/animate.css">
+<link rel="stylesheet" href="libs/nivo-slider/css/style.css">
+<link rel="stylesheet" href="libs/font-material/css/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="libs/slider-range/css/jslider.css">
+<link rel="stylesheet" href="libs/owl-carousel/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="libs/slick-slider/css/slick.css">
+<link rel="stylesheet" href="libs/slick-slider/css/slick-theme.css">
+
+<!-- Template CSS -->
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/reponsive.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="product-display">
+            <div class="product-images">
+                <img id="main-image" src="img/product/wchair.avif" alt="Main Image">
+                <video id="product-video" controls style="display: none;">
+                    <source src="product-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="thumbnail-images">
+                    <img src="img/product/wchair1.avif" alt="Image 1" data-full="img/product/wchair1.avif">
+                    <img src="img/product/wchair2.avif" alt="Image 2" data-full="img/product/wchair2.avif">
+                    <img src="img/product/wchair3.avif" alt="Image 2" data-full="img/product/wchair3.avif">
+                    <img src="img/product/wchair4.avif" alt="Image 2" data-full="img/product/wchair4.avif">
+                   
+                    
+                </div>
+            </div>
+            <div class="product-info">
+                <h1>RISHOLMEN</h1><br>
+                <p> Wing chair, in/outdoor, Järpön/Duvholmen anthracite</p>
+                <div class="rating">
+                    <span class="rating-stars">
+                        <input type="radio" name="rating" id="star5" value="5">
+                        <label for="star5">&#9733;</label>
+                        <input type="radio" name="rating" id="star4" value="4">
+                        <label for="star4">&#9733;</label>
+                        <input type="radio" name="rating" id="star3" value="3">
+                        <label for="star3">&#9733;</label>
+                        <input type="radio" name="rating" id="star2" value="2">
+                        <label for="star2">&#9733;</label>
+                        <input type="radio" name="rating" id="star1" value="1">
+                        <label for="star1">&#9733;</label>
+                    </span>
+                </div>
+                <div class="price">₹<span id="price-inr">19,990</span></div>
+
+                <div class="product-description">
+                    <h2>Description</h2>
+                    <p>If you need a moment for yourself, this wing chair in maintenance-free plastic rattan is a perfect outdoor retreat. The high back embraces you and provides comfortable support to the whole body.</p>
+                    </p>
+                </div>
+                <div class="product-features">
+                    <h2>Measurements</h2>
+                    <ul>
+                        <li>Width: 84 cm (33 ")</li>
+
+                           <li>  Height: 23 cm (9 ")</li>
+                            
+                            <li> Length: 130 cm (51 ¼ ")</li>
+                            <li>Weight: 19.50 kg (42 lb 16 oz)</li>
+                </ul>
+                </div>
+                <div class="buttons">
+                    <button class="buy-button">Buy Now</button>
+                    <button id="add-to-cart" class="cart-button">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.getElementById('add-to-cart').addEventListener('click', function() {
+                // Product details
+                const product = {
+                    id: 'risholmen', // A unique identifier for the product
+                    name: 'RISHOLMEN',
+                    price: parseFloat(document.getElementById('price-inr').textContent),
+                    quantity: 1 ,// Default quantity
+                    image:"img/product/wchair.avif"
+                };
+        
+                // Retrieve current cart from localStorage or initialize a new cart
+                const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+        
+                // Check if the product is already in the cart
+                const existingProductIndex = cart.findIndex(item => item.id === product.id);
+        
+                if (existingProductIndex > -1) {
+                    // If it exists, increase the quantity
+                    cart[existingProductIndex].quantity += product.quantity;
+                } else {
+                    // If it doesn't exist, add it to the cart
+                    cart.push(product);
+                }
+        
+                // Save updated cart back to localStorage
+                localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        
+                // Redirect to the cart page
+                window.location.href = 'bedcart.html'; // Change this to your cart page
+            });
+        </script>
+        <div class="customer-reviews">
+            <h2>Customer Reviews</h2>
+            
+            <!-- Additional reviews can be added here -->
+            <div class="review-form">
+                <h3>Leave a Review</h3>
+                <textarea placeholder="Write your review here..."></textarea>
+                <button id="submit-review">Submit Review</button>
+            </div>
+        </div>
+       
+        <div class="offers-section">
+            <h2>Special Offers</h2>
+            <div class="offer">
+                <h3>10% Off on First Purchase</h3>
+                <p>Use code FIRST10 at checkout.</p>
+            </div>
+            <div class="offer">
+                <h3>Free Shipping</h3>
+                <p>On orders over $100.</p>
+            </div>
+            <!-- Additional offers can be added here -->
+        </div>
+    </div>
+    <script>
+
+        // Assuming this script is on each product detail page
+function addToCart(product) {
+    let cartProducts = JSON.parse(localStorage.getItem('cartProducts')) || [];
+    
+    // Example product object
+    const newProduct = {
+        image: product.image,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        quantity: 1
+    };
+
+    // Check if product already exists in the cart
+    const existingProductIndex = cartProducts.findIndex(item => item.name === newProduct.name);
+    if (existingProductIndex !== -1) {
+        // If product exists, increase the quantity
+        cartProducts[existingProductIndex].quantity += 1;
+    } else {
+        // Add new product
+        cartProducts.push(newProduct);
+    }
+
+    // Save updated cart to localStorage
+    localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+
+    alert('Product added to cart!');
+}
+
+      document.addEventListener('DOMContentLoaded', function () {
+    const priceInINR = 19990; // Direct price in INR
+
+    // Update the price display to INR
+    document.getElementById('price-inr').textContent = priceInINR;
+
+    const video = document.getElementById('product-video');
+    const mainImage = document.getElementById('main-image');
+    const thumbnails = document.querySelectorAll('.thumbnail-images img');
+
+    thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', function () {
+            if (this.dataset.video) {
+                mainImage.style.display = 'none';
+                video.style.display = 'block';
+                video.src = this.dataset.video;
+                video.play();
+                thumbnails.forEach(img => img.classList.remove('active'));
+                this.classList.add('active');
+            } else {
+                video.style.display = 'none';
+                mainImage.style.display = 'block';
+                mainImage.src = this.dataset.full;
+                thumbnails.forEach(img => img.classList.remove('active'));
+                this.classList.add('active');
+            }
+        });
+    });
+
+    document.getElementById('submit-review').addEventListener('click', function () {
+        const reviewText = document.querySelector('.review-form textarea').value;
+        if (reviewText.trim() === '') {
+            alert('Please write a review before submitting.');
+            return;
+        }
+        const reviewContainer = document.querySelector('.customer-reviews');
+        const newReview = document.createElement('div');
+        newReview.classList.add('review');
+        newReview.innerHTML = `<h3>New User</h3><div class="review-rating">⭐⭐⭐⭐</div><p>${reviewText}</p>`;
+        reviewContainer.appendChild(newReview);
+        document.querySelector('.review-form textarea').value = ''; // Clear the textarea
+    });
+
+    document.querySelector('.buy-button').addEventListener('click', function () {
+        alert('You clicked Buy Now.');
+        // Implement actual buy functionality here
+    });
+
+    
+    document.querySelector('.cart-button').addEventListener('click', function () {
+        const productImage = mainImage.src;
+        const productPrice = `₹${priceInINR}`;
+        const productName = document.querySelector('.product-info h1').textContent;
+        const productDescription = document.querySelector('.product-description p').textContent;
+
+        localStorage.setItem('cartProductImage', productImage);
+        localStorage.setItem('cartProductPrice', productPrice);
+        localStorage.setItem('cartProductName', productName);
+        localStorage.setItem('cartProductDescription', productDescription);
+        localStorage.setItem('cartProductQuantity', 1); // Set default quantity to 1
+
+        window.location.href = 'bedcart.html';
+    });
+});
+
+
+
+        </script>
+       <!-- Page Loader -->
+    <div id="page-preloader">
+        <div class="page-loading">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <!-- Vendor JS -->
+    <script src="libs/jquery/jquery.min.js"></script>
+    <script src="libs/popper/popper.min.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="libs/nivo-slider/js/jquery.nivo.slider.js"></script>
+    <script src="libs/owl-carousel/owl.carousel.min.js"></script>
+    <script src="libs/slider-range/js/tmpl.js"></script>
+    <script src="libs/slider-range/js/jquery.dependClass-0.1.js"></script>
+    <script src="libs/slider-range/js/draggable-0.1.js"></script>
+    <script src="libs/slider-range/js/jquery.slider.js"></script>
+    <script src="libs/slick-slider/js/slick.min.js"></script>
+
+    <!-- Template JS -->
+    <script src="js/theme.js"></script> 
+        
+</body>
+</html>
