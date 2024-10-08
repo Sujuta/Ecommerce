@@ -228,30 +228,43 @@
         }
 
         function initiateRazorpay() {
-            const options = {
-                key: "rzp_test_Lej3U3SZhEkigd",
-                amount: 1000 * 100, // Amount in paise
-                currency: "INR",
-                name: "Furniture",
-                description: "Payment for order",
-                handler: function (response) {
-                    alert('Payment Successful! Payment ID: ' + response.razorpay_payment_id);
-                },
-                prefill: {
-                    name: "Customer Name",
-                    contact: "1234567890"
-                },
-                notes: {
-                    address: "Customer Address"
-                },
-                theme: {
-                    color: "#007bff"
-                }
-            };
+    const options = {
+        key: "rzp_test_Lej3U3SZhEkigd",
+        amount: 1000 * 100, // Amount in paise
+        currency: "INR",
+        name: "Furniture",
+        description: "Payment for order",
+        handler: function (response) {
+            alert('Payment Successful! Payment ID: ' + response.razorpay_payment_id);
+            
+            // Redirect to index page (or any other desired page)
+            window.location.href = 'index.html'; // Change 'index.html' to your desired redirect URL
 
-            const razorpay = new Razorpay(options);
-            razorpay.open();
+            // Empty the cart
+            localStorage.removeItem('shoppingCart'); // Assuming you store cart items in localStorage
+
+            // Disable the "Buy Now" button if the cart is empty
+            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+            if (cart.length === 0) {
+                document.getElementById('buy-now').disabled = true;
+            }
+        },
+        prefill: {
+            name: "Customer Name",
+            contact: "1234567890"
+        },
+        notes: {
+            address: "Customer Address"
+        },
+        theme: {
+            color: "#007bff"
         }
+    };
+
+    const razorpay = new Razorpay(options);
+    razorpay.open();
+}
+
 
         function confirmOrder() {
     // Here you can add any additional logic to save the order details in the database
