@@ -119,13 +119,32 @@
         <h1>Your Shopping Cart</h1>
         <div id="cart-items"></div>
         <div class="total-price" id="total-price">Total: ₹0.00</div>
-        <a href="onlinepayement.php"><button class="buy-now-btn" id="buy-now">Buy Now</button></a>
+        <a ><button class="buy-now-btn" id="buy-now">Buy Now</button></a>
     </div>
 
     <script>
+         document.getElementById('buy-now').addEventListener('click', function () {
+                
+                const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+               
+                if (cart.length==0){
+                //document.getElementById('buy-now').disabled=true;
+                alert("Cart empty")
+
+            }
+            else{
+                window.location.href='onlinepayement.php'
+            }
+
+
+
+                // Additional purchase handling code can go here
+            });
         document.addEventListener('DOMContentLoaded', function () {
             const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
             const cartItemsContainer = document.getElementById('cart-items');
+            
 
             function displayCartItems() {
                 cartItemsContainer.innerHTML = '';
@@ -154,6 +173,7 @@
 
             function updateTotalPrice() {
                 const totalPrice = cart.reduce((total, product) => total + (product.price * product.quantity), 0);
+                localStorage.setItem('totalPrice',totalPrice)
                 document.getElementById('total-price').textContent = `Total: ₹${totalPrice.toFixed(2)}`;
             }
 
@@ -172,10 +192,7 @@
                 displayCartItems();
             });
 
-            document.getElementById('buy-now').addEventListener('click', function () {
-              
-                // Additional purchase handling code can go here
-            });
+           
 
             displayCartItems(); // Initial call to display cart items
         });

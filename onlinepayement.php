@@ -149,7 +149,7 @@
         session_start();
 
         if (!isset($_SESSION['user_id'])) {
-            header("Location: login.php");
+            header("Location: register.php");
             exit();
         }
 
@@ -228,9 +228,10 @@
         }
 
         function initiateRazorpay() {
+            const totalPrice=localStorage.getItem('totalPrice')
     const options = {
         key: "rzp_test_Lej3U3SZhEkigd",
-        amount: 1000 * 100, // Amount in paise
+        amount: totalPrice * 100, // Amount in paise
         currency: "INR",
         name: "Furniture",
         description: "Payment for order",

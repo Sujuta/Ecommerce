@@ -134,7 +134,7 @@ if (isset($_POST['login'])) {
             // Update last login time
             $conn->query("UPDATE users SET last_login=NOW() WHERE id=" . $row['id']);
 
-            header("Location: profile.php");
+            header("Location: onlinepayement.php");
         } else {
             echo "<p style='color: red; text-align: center;'>Invalid password.</p>";
         }
