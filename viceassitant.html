@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Assistant for Furniture Website</title>
+    <!-- Link to Font Awesome for microphone icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        /* Button Styles */
+        #voice-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #007bff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* Microphone icon styles */
+        #voice-btn i {
+            color: #fff;
+            font-size: 36px;
+        }
+
+        /* Button hover effect */
+        #voice-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.1); /* Hover effect to make button grow */
+        }
+
+        /* Button animation */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Add pulsing animation to button */
+        #voice-btn {
+            animation: pulse 2s infinite;
+        }
+
+        /* Output styles */
+        #output {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Our Furniture Website</h1>
+    <!-- Voice button with a microphone icon -->
+    <button id="voice-btn">
+        <i class="fas fa-microphone"></i>
+    </button>
+    <p id="output"></p>
+
+    <script src="voiceAssistant.js"></script>
+</body>
+</html>

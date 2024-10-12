@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -144,7 +140,9 @@
 
 <body>
 <div class="container">
-<h2>My Profile</h2>
+        <a href="index.html"><img src="img/product/back arrow.gif" alt="" height="40px"></a>
+
+        <h2>My Profile</h2>
         <?php
         session_start();
 
@@ -162,20 +160,30 @@
             unset($_SESSION['error']);
         }
 
+        // Database connection
         $conn = new mysqli('localhost', 'root', '', 'ecommerce_db');
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
+        // Fetch user details from the database
         $user_id = $_SESSION['user_id'];
         $sql = "SELECT * FROM users WHERE id='$user_id'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
+            $customerName = htmlspecialchars($row['name']);
+            $customerID = htmlspecialchars($row['id']);
+            
+            echo "<script>
+                    localStorage.setItem('Username', '".json_encode($customerName)."');
+                  </script>";
+            // Display the information in the HTML
+            echo "<p><strong>Customer ID:</strong> " . $customerID . "</p>";
             echo "<p><strong>Username:</strong> " . htmlspecialchars($row['username']) . "</p>";
             echo "<p><strong>Email:</strong> " . htmlspecialchars($row['email']) . "</p>";
-            echo "<p><strong>Name:</strong> " . htmlspecialchars($row['name']) . "</p>";
+            echo "<p><strong>Name:</strong> " . $customerName . "</p>";
             echo "<p><strong>Address:</strong> " . htmlspecialchars($row['address']) . "</p>";
             echo "<p><strong>Phone:</strong> " . htmlspecialchars($row['phone']) . "</p>";
             echo "<p><strong>Pincode:</strong> " . htmlspecialchars($row['pincode']) . "</p>";
@@ -185,9 +193,9 @@
 
         $conn->close();
         ?>
-   </div>
+    </div>
 
-   <div class="container">
+    <div class="container">
         <h2 class="section-title">Payment Options</h2>
 
         <div class="payment-option" onclick="selectPayment('Razorpay')">
@@ -200,8 +208,8 @@
 
         <input type="hidden" id="payment-method" name="payment-method">
 
-        <button type="button" class="submit-button" id="razorpay-button" onclick="initiateRazorpay()">Proceed to Pay</button>
-        <button type="button" class="place-order-button" id="place-order-button"  onclick="confirmOrder()">Place Order</button>
+        <button type="button" class="submit-button" id="razorpay-button" onclick="initiateRazorpay('<?php echo $customerName; ?>', '<?php echo $customerID; ?>')">Proceed to Pay</button>
+        <button type="button" class="place-order-button" id="place-order-button" onclick="confirmOrder()">Place Order</button>
     </div>
 
     <script>
@@ -228,7 +236,7 @@
         }
 
         function initiateRazorpay() {
-            const totalPrice=localStorage.getItem('totalPrice')
+    const totalPrice = localStorage.getItem('totalPrice');
     const options = {
         key: "rzp_test_Lej3U3SZhEkigd",
         amount: totalPrice * 100, // Amount in paise
@@ -238,17 +246,11 @@
         handler: function (response) {
             alert('Payment Successful! Payment ID: ' + response.razorpay_payment_id);
             
-            // Redirect to index page (or any other desired page)
-            window.location.href = 'index.html'; // Change 'index.html' to your desired redirect URL
+            // Insert order details into the database
+            saveOrder(response.razorpay_payment_id, 'Paid');
 
-            // Empty the cart
-            localStorage.removeItem('shoppingCart'); // Assuming you store cart items in localStorage
-
-            // Disable the "Buy Now" button if the cart is empty
-            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-            if (cart.length === 0) {
-                document.getElementById('buy-now').disabled = true;
-            }
+            window.location.href = 'index.html';
+            localStorage.removeItem('shoppingCart'); // Empty cart
         },
         prefill: {
             name: "Customer Name",
@@ -261,19 +263,42 @@
             color: "#007bff"
         }
     };
-
+    
     const razorpay = new Razorpay(options);
     razorpay.open();
 }
+function saveOrder(paymentId, status) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "save_order.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    const Username  = localStorage.getItem('Username');
+    // Assuming order details like product name, quantity, and total price are stored in localStorage or elsewhere
+    const cartProductName = localStorage.getItem('cartProductName');
+    const quantity = localStorage.getItem('cartProductQuantity');
+    const totalPrice = localStorage.getItem('totalPrice');
+    const cartCount = localStorage.getItem('cartCount');
 
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("Order saved successfully.");
+        }
+    };
 
-        function confirmOrder() {
-    // Here you can add any additional logic to save the order details in the database
-
-    // Redirect to the order confirmation page
-    window.location.href = 'confirm.html';
+    xhr.send("payment_id=" + paymentId + "&status=" + status + "&product_name=" + cartProductName + "&quantity=" + cartCount + "&total_price=" + totalPrice+ "&Username="+Username);
 }
+function confirmOrder() {
+    alert('Order Placed with Cash on Delivery');
+
+    // Insert order details into the database with COD
+    saveOrder('COD', 'COD');
+    return
+    window.location.href = 'index.html';
+    localStorage.removeItem('shoppingCart'); // Empty cart
+}
+
     </script>
+
+
 </body>
 
 </html>

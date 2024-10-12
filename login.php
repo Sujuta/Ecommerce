@@ -23,7 +23,7 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            animation: scaleIn 1s ease-in-out; /* Apply scale-in animation to form */
+            animation: fadeIn 1s ease-in-out;
         }
 
         h2 {
@@ -63,6 +63,22 @@
             background-color: black;
         }
 
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .register-link a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .register-link a:hover {
+            color: #555;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -73,18 +89,9 @@
                 transform: translateY(0);
             }
         }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
     </style>
+
+    
 </head>
 <body>
     <form action="login.php" method="POST">
@@ -97,54 +104,54 @@
         <input type="password" name="password" required>
 
         <button type="submit" name="login">Login</button>
+
+        <div class="register-link">
+            Don't have an account? <a href="register.php">Register here</a>.
+        </div>
     </form>
 
     <?php
-session_start();
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+        // Get form data
+        $username = trim($_POST['username']);
+        $password = trim($_POST['password']);
 
-if (isset($_POST['login'])) {
-    // Default admin credentials
-    $admin_username = 'admin';
-    $admin_password = 'admin123';
-
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    // Check if the user is the default admin
-    if ($username === $admin_username && $password === $admin_password) {
-        $_SESSION['user_id'] = 'admin';
-        header("Location: adminpage.html");
-        exit();
-    }
-
-    // Database connection for other users
-    $conn = new mysqli('localhost', 'root', '', 'ecommerce_db');
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $sql = "SELECT * FROM users WHERE username='$username'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
-            $_SESSION['user_id'] = $row['id'];
-
-            // Update last login time
-            $conn->query("UPDATE users SET last_login=NOW() WHERE id=" . $row['id']);
-
-            header("Location: onlinepayement.php");
-        } else {
-            echo "<p style='color: red; text-align: center;'>Invalid password.</p>";
+        // Database connection
+        $conn = new mysqli('localhost', 'root', '', 'ecommerce_db');
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
         }
-    } else {
-        echo "<p style='color: red; text-align: center;'>No user found.</p>";
+
+        // Fetch user from database
+        $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows > 0) {
+            $stmt->bind_result($id, $db_username, $db_password);
+            $stmt->fetch();
+
+            // Verify the password
+            if (password_verify($password, $db_password)) {
+                session_start();
+                $_SESSION['username'] = $db_username;
+                $_SESSION['user_id'] = $id;
+                $loggedIn = true;
+                echo "<script>
+                        localStorage.setItem('loggedIn', '".json_encode($loggedIn)."');
+                      </script>";
+                echo "<script>alert('Login successful!'); window.location.href = 'onlinepayement.php';</script>";
+            } else {
+                echo "<script>alert('Incorrect password.');</script>";
+            }
+        } else {
+            echo "<script>alert('No user found with that username.');</script>";
+        }
+
+        $stmt->close();
+        $conn->close();
     }
-
-    $conn->close();
-}
-?>
-
+    ?>
 </body>
 </html>
