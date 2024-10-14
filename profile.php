@@ -99,7 +99,17 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+
         }
+        .order-link {
+        color: black; /* Set text color to black */
+        text-decoration: none; /* Remove underline */
+    }
+
+    .order-link:hover {
+        text-decoration: underline; /* Underline on hover */
+        color: #333; /* Slightly darker shade on hover */
+    }
     </style>
 </head>
 
@@ -148,6 +158,7 @@
 
         $conn->close();
         ?>
+       <a href="orders.php" class="order-link">order details</a>
         <a href="edit_profile.php" class="edit-button">Edit Profile</a>
         <a href="logout.php" class="logout-button">Logout</a>
     </div>

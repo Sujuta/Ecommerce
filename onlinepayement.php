@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -273,25 +274,27 @@ function saveOrder(paymentId, status) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     const Username  = localStorage.getItem('Username');
     // Assuming order details like product name, quantity, and total price are stored in localStorage or elsewhere
-    const cartProductName = localStorage.getItem('cartProductName');
-    const quantity = localStorage.getItem('cartProductQuantity');
+    //const cartProductName = localStorage.getItem('cartProductName');
+    //const quantity = localStorage.getItem('cartProductQuantity');
     const totalPrice = localStorage.getItem('totalPrice');
-    const cartCount = localStorage.getItem('cartCount');
-
+   // const cartCount = localStorage.getItem('cartCount');
+    const cartItems = JSON.parse(localStorage.getItem('shoppingCart')); 
+    const productsJSON = JSON.stringify(cartItems);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             console.log("Order saved successfully.");
         }
     };
 
-    xhr.send("payment_id=" + paymentId + "&status=" + status + "&product_name=" + cartProductName + "&quantity=" + cartCount + "&total_price=" + totalPrice+ "&Username="+Username);
+    xhr.send("payment_id=" + paymentId + "&status=" + status + "&total_price=" + totalPrice+ "&Username="+Username + "&products=" + encodeURIComponent(productsJSON));
+    
 }
 function confirmOrder() {
     alert('Order Placed with Cash on Delivery');
 
     // Insert order details into the database with COD
     saveOrder('COD', 'COD');
-    return
+    
     window.location.href = 'index.html';
     localStorage.removeItem('shoppingCart'); // Empty cart
 }
