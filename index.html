@@ -224,6 +224,12 @@
                             </button>
                         </form>
                         <script>
+                                 window.onload = function () {
+                                        if (localStorage.getItem('loggedIn') === 'true') {
+                                            document.getElementById('login-section').style.display = 'none';
+                                            document.getElementById('register-section').style.display = 'none';
+                                        }
+                                    };
                             document.getElementById("searchButton").addEventListener("click", function() {
                                 const searchValue = document.getElementById("searchInput").value.toLowerCase();
                                 
