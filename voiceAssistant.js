@@ -32,7 +32,7 @@ if (SpeechRecognition) {
         } else if (command.includes('open about page')) {
             speak('Opening the about page');
             window.location.href = 'about-us.html';  // Redirect to home page
-        } else if (command.includes('open shopping cart page')) {
+        } else if (command.includes(' shop cart page')) {
             speak('Opening the shopping cart page');
             window.location.href = 'bedcart.html';  // Redirect to home page
         }
@@ -46,12 +46,12 @@ if (SpeechRecognition) {
         recognition.start();  // Start listening for voice commands
     });
 
-    // Capture speech result
-    recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        output.textContent = `You said: ${transcript};`  // Display recognized text
-        handleCommand(transcript);  // Pass recognized text for command handling
-    };
+   // Capture speech result
+recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    alert(`You said: ${transcript}`);  // Display recognized text in a popup message
+    handleCommand(transcript);  // Pass recognized text for command handling
+};
 
     // Handle errors or when recognition stops
     recognition.onerror = (event) => {

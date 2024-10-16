@@ -35,47 +35,34 @@
     <!-- Template CSS -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/reponsive.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- Bootstrap CSS -->
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </head>
 
 <body id="home">
     <header>
         <!-- header left mobie -->
-        <div class="header-mobile d-md-none">
-            <div class="mobile hidden-md-up text-xs-center d-flex align-items-center justify-content-around">
+    
 
                 <!-- menu left -->
-                <div id="mobile_mainmenu" class="item-mobile-top">
-                    <i class="fa fa-bars" aria-hidden="true"></i>
-                </div>
+              
 
                 <!-- logo -->
-                <div class="mobile-logo">
-                    <a href="">
-                        <img class="logo-mobile img-fluid" src="img/home/logo-mobie.png" alt="Prestashop_Furnitica">
-                    </a>
-                </div>
+              
 
                 <!-- menu right -->
-                <div class="mobile-menutop" data-target="#mobile-pagemenu">
-                    <i class="zmdi zmdi-more"></i>
-                </div>
+               
             </div>
 
             <!-- search -->
-            <div id="mobile_search" class="d-flex">
-                <div id="mobile_search_content">
-                    <form method="get" action="#">
-                        <input type="text" name="s" value="" placeholder="Search">
-                        <button type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </form>
-                </div>
-                
-                    </div>
-                </div>
-            </div>
+            
         </div>
 
         <!-- header desktop -->
@@ -290,13 +277,13 @@
                                             <span>My Account</span>
                                         </a>
                                     </div>
-                                    <div>
+                                    <div  id="login-section">
                                         <a class="login" href="login.php" rel="nofollow" title="Log in to your customer account">
                                             <i class="fa fa-sign-in"></i>
                                             <span>Sign in</span>
                                         </a>
                                     </div>
-                                    <div>
+                                    <div id="register-section">
                                         <a class="register" href="register.php" rel="nofollow" title="Register Account">
                                             <i class="fa fa-user"></i>
                                             <span>Register Account</span>
@@ -318,8 +305,65 @@
             </a>
         </div>
     </div>
-</nav>
+</nav> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<style>
+    #voice-btn {
+           width: 10px;
+           height: 5px;
+           border-radius: 50%;
+           background-color: #2f3133;
+           border: none;
+           cursor: pointer;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           transition: transform 0.3s ease, background-color 0.3s ease;
+       }
+
+       /* Microphone icon styles */
+       #voice-btn i {
+           color: #6d6a6a;
+           font-size: 25px;
+       }
+
+       /* Button hover effect */
+       #voice-btn:hover {
+           background-color: #38393a;
+           transform: scale(1.1); /* Hover effect to make button grow */
+       }
+
+       /* Button animation */
+       @keyframes pulse {
+           0% {
+               transform: scale(1);
+           }
+           50% {
+               transform: scale(1.05);
+           }
+           100% {
+               transform: scale(1);
+           }
+       }
+
+       /* Add pulsing animation to button */
+       #voice-btn {
+           animation: pulse 2s infinite;
+       }
+
+       /* Output styles */
+       #output {
+           margin-top: 10px;
+           font-size: 18px;
+           color: #555;
+       }
+</style>
+<button id="voice-btn">
+   <i class="fas fa-microphone"></i>
+</button>
+<p id="output"></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<script src="voiceAssistant.js"></script>
                        
+
 
                             
                         </div>
@@ -363,14 +407,65 @@
                                             <div class="block-content">
                                                 <div class="policy-item">
                                                     <div class="policy-content iconpolicy1">
-                                                        <img src="img/home/home1-policy.png" alt="img">
+                                                        <img src="img/home/home1-policy.png" alt="img" id="policyImage" style="cursor:pointer;">
                                                         <div class="policy-name mb-5">FREE DELIVERY</div>
-                                                        
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <!-- Bootstrap Modal -->
+                                    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="modalTitle">Free and Fast Delivery by Furnitica</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <!-- Image similar to the Amazon modal -->
+                                           
+                                            
+                                            <p>Congratulations! You get Free Delivery on your first order ! No minimum order value.</p>
+                                            <p>Look for "FREE delivery" next to the item price.</p>
+                                            
+                                            <!-- Price and Delivery info -->
+                                            <div class="delivery-info">
+                                              <strong>Price:</strong> ₹450<br>
+                                              <strong>FREE delivery:</strong> Octomber 29 - 5 November on your first order.<br>
+                                              <strong>Fastest delivery:</strong> Today.
+                                            </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+<style>
+    .delivery-info {
+    background-color: #fff7e6;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ffd700;
+}
+.modal-body img {
+    width: 100%; /* Make the image responsive */
+}
+
+</style>                                    
+<script>
+    // jQuery function to open the modal when the image is clicked
+$(document).ready(function() {
+    $('#policyImage').click(function() {
+        $('#infoModal').modal('show');
+    });
+});
+
+</script>            
                                     <div class="tiva-html col-lg-4 col-md-4">
                                         <div class="block">
                                             <div class="block-content">
@@ -2654,15 +2749,12 @@
                                                     <div class="desc-testimonial">
                                                         <div class="testimonial-content">
                                                             <div class="text">
-                                                                <p>" Liquam quis risus viverra, ornare ipsum vitae, congue tellus.
-                                                                    Vestibulum nunc lorem, scelerisque a tristique non, accumsan
-                                                                    ornare eros. Nullam sapien metus, volutpat dictum, accumsan
-                                                                    ornare eros. Nullam sapien metus, volutpat dictum "</p>
+                                                                <p>" The Wipro oven toast grill has been a fantastic addition to my kitchen. "</p>
                                                             </div>
                                                         </div>
                                                         <div class="testimonial-info">
-                                                            <h5 class="mt-0 box-info">David Jame</h5>
-                                                            <p class="box-dress">DESIGNER</p>
+                                                            <h5 class="mt-0 box-info">	varnika goyal</h5>
+                                                           
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2673,15 +2765,13 @@
                                                     <div class="desc-testimonial">
                                                         <div class="testimonial-content">
                                                             <div class="text">
-                                                                <p>" Liquam quis risus viverra, ornare ipsum vitae, congue tellus.
-                                                                    Vestibulum nunc lorem, scelerisque a tristique non, accumsan
-                                                                    ornare eros. Nullam sapien metus, volutpat dictum, accumsan
-                                                                    ornare eros. Nullam sapien metus, volutpat dictum "</p>
+                                                                <p>"It's been more than 6 months we are using this sofa. Sofa is very comfortable and not lost its shape .
+                                                                    Excellent product "</p>
                                                             </div>
                                                         </div>
                                                         <div class="testimonial-info">
-                                                            <h5 class="mt-0 box-info">Max Control</h5>
-                                                            <p class="box-dress">DEVELOPER</p>
+                                                            <h5 class="mt-0 box-info">Shubham Patil</h5>
+                                                          
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2692,15 +2782,12 @@
                                                     <div class="desc-testimonial">
                                                         <div class="testimonial-content">
                                                             <div class="text">
-                                                                <p>" Liquam quis risus viverra, ornare ipsum vitae, congue tellus.
-                                                                    Vestibulum nunc lorem, scelerisque a tristique non, accumsan
-                                                                    ornare eros. Nullam sapien metus, volutpat dictum, accumsan
-                                                                    ornare eros. Nullam sapien metus, volutpat dictum "</p>
+                                                                <p>"All items are OK no crack no damage. Size , shape and material of the dinner set is good. "</p>
                                                             </div>
                                                         </div>
                                                         <div class="testimonial-info">
                                                             <h5 class="mt-0 box-info">John Do</h5>
-                                                            <p class="box-dress">CSS - HTML</p>
+                                                           
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2711,15 +2798,12 @@
                                                     <div class="desc-testimonial">
                                                         <div class="testimonial-content">
                                                             <div class="text">
-                                                                <p>" Liquam quis risus viverra, ornare ipsum vitae, congue tellus.
-                                                                    Vestibulum nunc lorem, scelerisque a tristique non, accumsan
-                                                                    ornare eros. Nullam sapien metus, volutpat dictum, accumsan
-                                                                    ornare eros. Nullam sapien metus, volutpat dictum "</p>
+                                                                <p>" The bed looks premium and has a modern look. It's sturdy. Loved the product. Go on! "</p>
                                                             </div>
                                                         </div>
                                                         <div class="testimonial-info">
-                                                            <h5 class="mt-0 box-info">Elizabeth Pham</h5>
-                                                            <p class="box-dress">DEVELOPER</p>
+                                                            <h5 class="mt-0 box-info">Aakash Koli</h5>
+                                                          
                                                         </div>
                                                     </div>
                                                 </div>
@@ -3160,7 +3244,7 @@
 
                         
 
-                            <!-- partner -->
+                            <!-- partner
                             <div class="section introduct-logo">
                                 <div class="row">
                                     <div class="tiva-manufacture  col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
@@ -3297,7 +3381,7 @@
                         <div class="tiva-modules col-lg-4 col-md-6">
                             <div class="block m-top">
                                 <div class="block-content">
-                                    <div class="title-block">Newsletter</div>
+                                    <div class="title-block"></div>
                                     
                                     <div class="block-newsletter">
                                        
@@ -3306,35 +3390,8 @@
                             <div class="block m-top1">
                                 <div class="block-content">
                                     <div class="social-content">
-                                        <div class="title-block">
-                                            Follow us on
-                                        </div>
-                                        <div id="social-block">
-                                            <div class="social">
-                                                <ul class="list-inline mb-0 justify-content-end">
-                                                    <li class="list-inline-item mb-0">
-                                                        <a href="#" target="_blank">
-                                                            <i class="fa fa-facebook"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item mb-0">
-                                                        <a href="#" target="_blank">
-                                                            <i class="fa fa-twitter"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item mb-0">
-                                                        <a href="#" target="_blank">
-                                                            <i class="fa fa-google"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item mb-0">
-                                                        <a href="#" target="_blank">
-                                                            <i class="fa fa-instagram"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        
+                                                                                </div>
                                     </div>
                                 </div>
                             </div>
@@ -3345,7 +3402,7 @@
                                             Payment accept
                                         </div>
                                         <div class="payment-image">
-                                            <img class="img-fluid" src="img/home/payment.png" alt="img">
+                                            <img class="img-fluid" src="img/product/pay.jfif" alt="img" height="50" width="50">
                                         </div>
                                     </div>
                                     <!-- Popup newsletter -->

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,7 +23,7 @@
             background-color: #fff;
             width: 100%;
             max-width: 400px;
-            padding: 30px;
+            padding: 50px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             animation: fadeIn 1s ease-in-out;
@@ -48,7 +51,7 @@
         }
 
         button[type="submit"] {
-            width: 100%;
+            width: 90%;
             background-color: gray;
             color: white;
             border: none;
@@ -94,6 +97,8 @@
     
 </head>
 <body>
+
+
     <form action="login.php" method="POST">
         <h2>Login</h2>
         
@@ -103,12 +108,29 @@
         <label for="password">Password:</label>
         <input type="password" name="password" required>
 
-        <button type="submit" name="login">Login</button>
+        <button type="submit" name="login" >Login</button>
 
         <div class="register-link">
             Don't have an account? <a href="register.php">Register here</a>.
         </div>
     </form>
+    <div class="modal fade" id="loginSuccessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login Successful</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                You have logged in successfully!
+            </div>
+            <div class="modal-footer" >
+            <button type="button" class="btn custom-gray-button" data-bs-dismiss="modal" onclick="redirectToHome()">Go to Home page</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
@@ -138,13 +160,18 @@
                 $_SESSION['username'] = $db_username;
                 $_SESSION['user_id'] = $id;
                 $loggedIn = true;
+                
+                // Store logged in status in localStorage
                 echo "<script>
                         localStorage.setItem('loggedIn', '".json_encode($loggedIn)."');
+                        // Trigger Bootstrap modal
+                        var myModal = new bootstrap.Modal(document.getElementById('loginSuccessModal'));
+                        myModal.show();
                       </script>";
-                echo "<script>alert('Login successful!'); window.location.href = 'onlinepayement.php';</script>";
             } else {
                 echo "<script>alert('Incorrect password.');</script>";
             }
+            
         } else {
             echo "<script>alert('No user found with that username.');</script>";
         }
@@ -153,5 +180,11 @@
         $conn->close();
     }
     ?>
+    <script>
+    function redirectToHome() {
+        window.location.href = 'index.html';
+    }
+</script>
+
 </body>
 </html>

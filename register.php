@@ -162,7 +162,7 @@ if (!nameRegex.test(name)) {
     </script>
 </head>
 <body>
-    <form name="registerForm" action="register.php" method="POST" onsubmit="return validateForm()">
+    <form name="registerForm" action="register.php" method="POST" onsubmit="return validateForm()"  >
         <h2>Register</h2>
         
         <label for="username">Username:</label>
