@@ -110,6 +110,21 @@
         text-decoration: underline; /* Underline on hover */
         color: #333; /* Slightly darker shade on hover */
     }
+    .button {
+    background-color: gray;
+    color: white; /* Text color */
+    padding: 10px 20px; /* Padding to make it look like a button */
+    text-decoration: none; /* Remove underline */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    display: inline-block;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: darkgray; /* Change color on hover */
+}
+
     </style>
 </head>
 
@@ -158,7 +173,8 @@
 
         $conn->close();
         ?>
-       <a href="orders.php" class="order-link">order details</a>
+<a href="orders.php" class="order-link button">Order Details</a>
+
         <a href="edit_profile.php" class="edit-button">Edit Profile</a>
         <a href="logout.php" class="logout-button">Logout</a>
     </div>
