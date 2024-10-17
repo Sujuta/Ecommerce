@@ -182,7 +182,7 @@
     ?>
     <script>
     function redirectToHome() {
-        window.location.href = 'index.html';
+        window.location.href = 'onlinepayement.php';
     }
 </script>
 
